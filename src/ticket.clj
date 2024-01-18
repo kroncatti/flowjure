@@ -1,15 +1,23 @@
 (ns ticket
   (:require [io.pedestal.http :as http]
-            [io.pedestal.http.route :as route]))
+            [io.pedestal.http.route :as route]
+            [io.pedestal.http.content-negotiation :as content-negotiation]))
 
+(def supported-types ["text/html"
+                      "application/edn"
+                      "application/json"
+                      "text/plain"])
 
 (defn respond-ticket [request]
-  {:status 200 :body "Hello, ticket!"})
+  {:status 200 :body request})
 
 
 (def routes
   (route/expand-routes
-   #{["/ticket" :get respond-ticket :route-name ::ticket]}))
+   #{["/ticket"
+      :get [(content-negotiation/negotiate-content supported-types)
+            respond-ticket]
+      :route-name ::ticket]}))
 
 (def service-map
   {::http/routes routes
@@ -35,3 +43,5 @@
 (defn restart! []
   (stop-dev!)
   (start-dev!))
+
+(restart!)
