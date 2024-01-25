@@ -4,7 +4,8 @@
             [app :as app]))
 
 
-(defn new-app [env]
-  (component/system-map
-   :service-map (app/service-map env)
-   :pedestal (component/using (components.pedestal/new-pedestal) [:service-map])))
+(defn new-system [& options]
+  (let [{:keys [env port]} options]
+    (component/system-map
+     :service-map (app/service-map env port)
+     :pedestal (component/using (components.pedestal/new-pedestal) [:service-map]))))

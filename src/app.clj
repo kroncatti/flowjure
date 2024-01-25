@@ -11,9 +11,9 @@
    (set/union routes.flow/flow
               routes.record/record)))
 
-(defn service-map [env]
+(defn service-map [env port]
   {:env          env
    ::http/routes app/routes
    ::http/type   :jetty
-   ::http/port   8890
+   ::http/port   port
    ::http/join?  false})
