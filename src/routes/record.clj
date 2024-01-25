@@ -4,7 +4,7 @@
 
 (defn get-record [request]
   (println request)
-  {:status 200 :body {:record "1234"}})
+  {:status 200 :body request})
 
 (def record #{["/record"
                :get [interceptors.coercer/coerce-body
