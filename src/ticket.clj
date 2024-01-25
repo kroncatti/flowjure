@@ -1,21 +1,19 @@
 (ns ticket
-  (:require [io.pedestal.http :as http]
-            [io.pedestal.http.route :as route]
-            [io.pedestal.http.content-negotiation :as content-negotiation]))
+  (:require [interceptors.coercer :as interceptors.coercer]
+            [io.pedestal.http :as http]
+            [io.pedestal.http.route :as route]))
 
-(def supported-types ["text/html"
-                      "application/edn"
-                      "application/json"
-                      "text/plain"])
 
 (defn respond-ticket [request]
-  {:status 200 :body request})
+  (println request)
+  {:status 200 :body {:ticket "1234"}})
 
 
 (def routes
   (route/expand-routes
    #{["/ticket"
-      :get [(content-negotiation/negotiate-content supported-types)
+      :get [interceptors.coercer/coerce-body
+            interceptors.coercer/content-negotiation
             respond-ticket]
       :route-name ::ticket]}))
 
@@ -43,5 +41,3 @@
 (defn restart! []
   (stop-dev!)
   (start-dev!))
-
-(restart!)
