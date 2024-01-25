@@ -1,21 +1,15 @@
-(ns ticket
-  (:require [interceptors.coercer :as interceptors.coercer]
+(ns app
+  (:require [clojure.set :as set]
             [io.pedestal.http :as http]
-            [io.pedestal.http.route :as route]))
-
-
-(defn respond-ticket [request]
-  (println request)
-  {:status 200 :body {:ticket "1234"}})
+            [io.pedestal.http.route :as route]
+            [routes.flow :as routes.flow]
+            [routes.record :as routes.record]))
 
 
 (def routes
   (route/expand-routes
-   #{["/ticket"
-      :get [interceptors.coercer/coerce-body
-            interceptors.coercer/content-negotiation
-            respond-ticket]
-      :route-name ::ticket]}))
+   (set/union routes.flow/flow
+              routes.record/record)))
 
 (def service-map
   {::http/routes routes
@@ -41,3 +35,4 @@
 (defn restart! []
   (stop-dev!)
   (start-dev!))
+(restart!)
