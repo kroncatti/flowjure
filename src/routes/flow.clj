@@ -6,7 +6,7 @@
   (println request)
   {:status 200 :body {:flow "1234"}})
 
-(def flow #{["/ticket"
+(def flow #{["/flow"
              :get [interceptors.coercer/coerce-body
                    interceptors.coercer/content-negotiation
                    get-flow]
