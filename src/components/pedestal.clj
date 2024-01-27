@@ -1,20 +1,28 @@
 (ns components.pedestal
   (:require [com.stuartsierra.component :as component]
-            [io.pedestal.http :as http]))
+            [io.pedestal.http :as http]
+            [interceptors.inject :as interceptors.inject]))
 
 (defn test?
   [service-map]
   (= :test (:env service-map)))
 
+; Reloadable routes: https://github.com/pedestal/pedestal/blob/master/service-template/src/leiningen/new/pedestal_service/server.clj#L21
 
-(defrecord Pedestal [service-map service]
+(defrecord Pedestal [service-map service app]
   component/Lifecycle
   (start [this]
-    (if service
-      this
-      (assoc this :service
-                  (cond-> (http/create-server service-map)
-                          (not (test? service-map)) http/start))))
+    (let [service-map+interceptors (-> service-map
+                                       http/default-interceptors
+                                       (update ::http/interceptors conj (interceptors.inject/inject app)))]
+      (if service
+        this
+        (assoc this :service (if (not (test? service-map))
+                               (-> service-map+interceptors
+                                   http/create-server
+                                   http/start)
+                               (-> service-map+interceptors
+                                   (http/create-server service-map)))))))
   (stop [this]
     (when (and service (not (test? service-map)))
       (http/stop service))
@@ -22,4 +30,4 @@
 
 (defn new-pedestal
   []
-  (map->Pedestal {}))
+  (component/using (map->Pedestal {}) [:app]))
