@@ -1,7 +1,7 @@
 (ns components.pedestal
   (:require [com.stuartsierra.component :as component]
             [io.pedestal.http :as http]
-            [interceptors.inject :as interceptors.inject]))
+            [interceptors.injection :as interceptors.inject]))
 
 (defn test?
   [service-map]
@@ -14,7 +14,7 @@
   (start [this]
     (let [service-map+interceptors (-> service-map
                                        http/default-interceptors
-                                       (update ::http/interceptors conj (interceptors.inject/inject app)))]
+                                       (update ::http/interceptors conj (interceptors.injection/injection app)))]
       (if service
         this
         (assoc this :service (if (not (test? service-map))

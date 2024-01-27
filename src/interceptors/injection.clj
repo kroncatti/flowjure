@@ -1,7 +1,7 @@
-(ns interceptors.inject
+(ns interceptors.injection
   (:require [io.pedestal.interceptor :as i]))
 
-(defn inject [app]
+(defn injection [app]
   (i/interceptor
-   {:name  ::inject
+   {:name  ::injection
     :enter (fn [context] (assoc-in context [:request :components] app))}))
