@@ -2,12 +2,11 @@
   (:require [interceptors.coercer :as interceptors.coercer]))
 
 
-(defn get-flow [request]
-  (println request)
-  {:status 200 :body {:flow "1234"}})
+(defn get-flow! [request]
+  {:status 200 :body request})
 
 (def flow #{["/flow"
              :get [interceptors.coercer/coerce-body
                    interceptors.coercer/content-negotiation
-                   get-flow]
+                   get-flow!]
              :route-name ::flow]})

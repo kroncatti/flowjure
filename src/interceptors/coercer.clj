@@ -29,9 +29,8 @@
 (def content-negotiation (content-negotiation/negotiate-content supported-types))
 
 (def coerce-body
-  {:name ::coerce-body
-   :leave
-   (fn [context]
-     (if (get-in context [:response :headers "Content-Type"])
-       context
-       (update-in context [:response] coerce-to (accepted-type context))))})
+  {:name  ::coerce-body
+   :leave (fn [context]
+            (if (get-in context [:response :headers "Content-Type"])
+              context
+              (update-in context [:response] coerce-to (accepted-type context))))})

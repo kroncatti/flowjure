@@ -17,3 +17,5 @@
   (component/start (components/new-system {:env  :test
                                            :port 8892
                                            :db-url  "mongodb://user:password@127.0.0.1:27017/test"})))
+
+(-main)

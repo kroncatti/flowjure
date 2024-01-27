@@ -6,7 +6,7 @@
             [app :as app]))
 
 (def visible
-  [:db :pedestal :service-map])
+  [:db])
 
 
 (defn new-system [& options]
@@ -14,5 +14,5 @@
     (component/system-map
      :service-map (app/service-map env port)
      :db (components.mongo/new-mongo-db db-url)
-     :pedestal (component/using (components.pedestal/new-pedestal) [:service-map :db])
+     :pedestal (component/using (components.pedestal/new-pedestal) [:service-map :app])
      :app (component/using (components.app/new-app) visible))))

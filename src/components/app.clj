@@ -4,7 +4,9 @@
 (defrecord App []
 
   component/Lifecycle
-  (start [this] this)
-  (stop  [this] this))
+  (start [this]
+    this)
+  (stop [this]
+    this))
 
 (defn new-app [] (map->App {}))
