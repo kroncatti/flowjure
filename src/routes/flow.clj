@@ -3,6 +3,7 @@
 
 
 (defn get-flow! [request]
+  (clojure.pprint/pprint request)
   {:status 200 :body request})
 
 (def flow #{["/flow"
