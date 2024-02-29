@@ -1,7 +1,6 @@
 (ns routes.flow
   (:require [interceptors.coercer :as interceptors.coercer]))
 
-
 (defn get-flow! [{{:keys [db]} :components
                   :as          request}]
   (println db)

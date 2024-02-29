@@ -5,7 +5,6 @@
             [routes.flow :as routes.flow]
             [routes.record :as routes.record]))
 
-
 (def routes
   (route/expand-routes
    (set/union routes.flow/flow
