@@ -1,7 +1,8 @@
 (ns interceptors.coercer
   (:require [io.pedestal.http.content-negotiation :as content-negotiation]
-            [clojure.data.json :as json]))
-
+            [io.pedestal.interceptor :as i]
+            [clojure.data.json :as json]
+            [schema.core :as s]))
 
 (def supported-types ["text/html"
                       "application/edn"
@@ -28,8 +29,17 @@
 
 (def content-negotiation (content-negotiation/negotiate-content supported-types))
 
-(def coerce-body
-  {:name  ::coerce-body
+(defn coerce-body-request! [body-schema]
+  (i/interceptor
+   {:name ::coerce-body-request!
+    :enter (fn [context]
+             (if (get context :body)
+               (do (s/validate body-schema (get context :body))
+                   context)
+               context))}))
+
+(def coerce-body-response
+  {:name  ::coerce-body-response
    :leave (fn [context]
             (if (get-in context [:response :headers "Content-Type"])
               context
