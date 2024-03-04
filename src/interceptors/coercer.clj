@@ -29,18 +29,20 @@
 
 (def content-negotiation (content-negotiation/negotiate-content supported-types))
 
-(defn coerce-body-request! [body-schema]
-  (i/interceptor
-   {:name ::coerce-body-request!
-    :enter (fn [context]
-             (if (get context :body)
-               (do (s/validate body-schema (get context :body))
-                   context)
-               context))}))
+(defn coerce-body!
+  ([body-schema]
+   (i/interceptor
+    {:name ::coerce-body!
+     :enter (fn [context]
+              (if (and (get context :body) body-schema)
+                (do (s/validate body-schema (get context :body))
+                    context)
+                context))
+     :leave (fn [context]
+              (if (get-in context [:response :headers "Content-Type"])
+                context
+                (update-in context [:response] coerce-to (accepted-type context))))}))
+  ([]
+   (coerce-body! nil)))
 
-(def coerce-body-response
-  {:name  ::coerce-body-response
-   :leave (fn [context]
-            (if (get-in context [:response :headers "Content-Type"])
-              context
-              (update-in context [:response] coerce-to (accepted-type context))))})
+

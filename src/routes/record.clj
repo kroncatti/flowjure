@@ -7,7 +7,7 @@
   {:status 200 :body request})
 
 (def record #{["/record"
-               :get [interceptors.coercer/coerce-body-response
+               :get [interceptors.coercer/coerce-body!
                      interceptors.coercer/content-negotiation
                      get-record!]
                :route-name ::record]})
