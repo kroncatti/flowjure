@@ -34,7 +34,9 @@
    (i/interceptor
     {:name ::coerce-body!
      :enter (fn [context]
-              (if (and (get-in context [:request :json-params]) body-schema)
+              (if (and (or (get-in context [:request :json-params])
+                           (get-in context [:request :edn-params]))
+                       body-schema)
                 (do (s/validate body-schema (get context :body))
                     context)
                 context))
