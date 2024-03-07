@@ -3,7 +3,6 @@
             [io.pedestal.http :as http]
             [interceptors.injection :as interceptors.injection]))
 
-
 (defn env?
   [service-map env]
   (= env (:env service-map)))
@@ -14,7 +13,7 @@
               http/default-interceptors
               (update ::http/interceptors conj (interceptors.injection/injection app))
               http/create-server)
-          (not (env? service-map :test)) http/start))
+    (not (env? service-map :test)) http/start))
 
 (defrecord Pedestal [service-map service app]
   component/Lifecycle
