@@ -1,6 +1,7 @@
 (ns flowjure.models.flow
   (:require [schema.core :as s]))
 
+
 (s/defschema Tag (s/enum :begin :end))
 
 (s/defschema Step {(s/required-key :name) s/Str

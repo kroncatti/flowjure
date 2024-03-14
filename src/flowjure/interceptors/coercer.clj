@@ -29,25 +29,30 @@
 
 (def content-negotiation (content-negotiation/negotiate-content supported-types))
 
+(defn coerce-body-on-enter [context body-schema]
+  (let [body (or (get-in context [:request :json-params]) (get-in context [:request :edn-params]))]
+    (when body-schema
+      (s/validate body-schema body))
+    context))
+
+(defn coerce-body-on-leave [context]
+  (if (get-in context [:response :headers "Content-Type"])
+    context
+    (update-in context [:response] coerce-to (accepted-type context))))
+
+(defn coerce-body-on-error [context _]
+  (assoc context :response (coerce-to {:status 400
+                                       :body   {:details {:reason :schema-validation-error}}}
+                                      (accepted-type context))))
+
 
 (defn coerce-body!
   ([body-schema]
    (i/interceptor
      {:name  ::coerce-body!
       :enter (fn [context]
-               (if (and
-                     (or (get-in context [:request :json-params])
-                         (get-in context [:request :edn-params]))
-                     body-schema)
-                 (s/validate body-schema (get context :body))
-                 context))
-      :leave (fn [context]
-               (if (get-in context [:response :headers "Content-Type"])
-                 context
-                 (update-in context [:response] coerce-to (accepted-type context))))
-      :error (fn [context _]
-               (assoc context :response (coerce-to {:status 400
-                                                    :body   {:details {:reason :schema-validation-error}}}
-                                                   (accepted-type context))))}))
+               (coerce-body-on-enter context body-schema))
+      :leave coerce-body-on-leave
+      :error coerce-body-on-error}))
   ([]
    (coerce-body! nil)))
