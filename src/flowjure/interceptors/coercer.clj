@@ -1,4 +1,4 @@
-(ns interceptors.coercer
+(ns flowjure.interceptors.coercer
   (:require [io.pedestal.http.content-negotiation :as content-negotiation]
             [io.pedestal.interceptor :as i]
             [clojure.data.json :as json]

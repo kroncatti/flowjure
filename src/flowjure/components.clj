@@ -1,9 +1,9 @@
-(ns components
+(ns flowjure.components
   (:require [com.stuartsierra.component :as component]
-            [components.app :as components.app]
-            [components.pedestal :as components.pedestal]
-            [components.mongo :as components.mongo]
-            [app :as app]))
+            [flowjure.components.app :as components.app]
+            [flowjure.components.pedestal :as components.pedestal]
+            [flowjure.components.mongo :as components.mongo]
+            [flowjure.app :as app]))
 
 (def visible
   [:db])

@@ -1,6 +1,6 @@
-(ns server
+(ns flowjure.server
   (:require [com.stuartsierra.component :as component]
-            [components :as components]))
+            [flowjure.components :as components]))
 
 (defn -main [& args]
   (component/start (components/new-system {:env    :prod
@@ -16,3 +16,5 @@
   (component/start (components/new-system {:env    :test
                                            :port   8892
                                            :db-url "mongodb://user:password@127.0.0.1:27017/test"})))
+
+(-main)

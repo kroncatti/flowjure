@@ -1,4 +1,4 @@
-(ns components.app
+(ns flowjure.components.app
   (:require [com.stuartsierra.component :as component]))
 
 (defrecord App []

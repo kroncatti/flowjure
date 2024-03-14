@@ -1,4 +1,4 @@
-(ns components.mongo
+(ns flowjure.components.mongo
   (:require [com.stuartsierra.component :as component]
             [monger.core :as mg]))
 

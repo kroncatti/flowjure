@@ -1,7 +1,7 @@
-(ns components.pedestal
+(ns flowjure.components.pedestal
   (:require [com.stuartsierra.component :as component]
             [io.pedestal.http :as http]
-            [interceptors.injection :as interceptors.injection]))
+            [flowjure.interceptors.injection :as interceptors.injection]))
 
 (defn env?
   [service-map env]

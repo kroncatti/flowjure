@@ -1,7 +1,7 @@
-(ns routes.flow
-  (:require [interceptors.coercer :as interceptors.coercer]
-            [interceptors.common :as interceptors.common]
-            [models.flow :as models.flow]))
+(ns flowjure.routes.flow
+  (:require [flowjure.interceptors.coercer :as interceptors.coercer]
+            [flowjure.interceptors.common :as interceptors.common]
+            [flowjure.models.flow :as models.flow]))
 
 (defn get-flow! [{{:keys [db]} :components
                   :as          request}]

@@ -1,18 +1,16 @@
-(ns app
+(ns flowjure.app
   (:require [clojure.set :as set]
             [io.pedestal.http :as http]
             [io.pedestal.http.route :as route]
-            [routes.flow :as routes.flow]
-            [routes.record :as routes.record]))
+            [flowjure.routes.flow :as routes.flow]))
 
 (def routes
   (route/expand-routes
-   (set/union routes.flow/flow
-              routes.record/record)))
+   (set/union routes.flow/flow)))
 
 (defn service-map [env port]
   {:env          env
-   ::http/routes app/routes
+   ::http/routes routes
    ::http/type   :jetty
    ::http/port   port
    ::http/join?  false})

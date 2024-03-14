@@ -1,4 +1,4 @@
-(ns interceptors.injection
+(ns flowjure.interceptors.injection
   (:require [io.pedestal.interceptor :as i]))
 
 (defn injection [app]
