@@ -4,17 +4,19 @@
             [monger.collection :as mc]
             [flowjure.models.flow :as models.flow]))
 
-(defn get-flow! [{{:keys [db]} :components
-                  :as          request}]
-  (clojure.pprint/pprint (mc/find-maps (:database db) :users))
+(defn get-flow! [{{{:keys [database]} :db} :components :as request}]
+  (clojure.pprint/pprint (mc/find-maps database :users))
   {:status 200 :body request})
 
-(defn post-flow! [{{:keys [db]} :components
-                   :as          request}]
-  (clojure.pprint/pprint (:json-params request))
-  {:status 200 :body (:json-params request)})
+(defn post-flow! [{{{:keys [database]} :db} :components
+                   data                     :data}]
+  (let [id (random-uuid)
+        payload (assoc data :_id id)]
+    (mc/insert-and-return database :flow payload)
+    {:status 200 :body {:result "success"
+                        :id     id}}))
 
-(def flow #{["/flow"
+(def flow #{["/flow/:id"
              :get [interceptors.coercer/content-negotiation
                    interceptors.coercer/coerce-body!
                    get-flow!]

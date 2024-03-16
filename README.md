@@ -1,2 +1,9 @@
 # flowjure
-The elegancy of Clojure dealing with flows.
+The elegance of Clojure dealing with flows.
+
+## Running tests
+Run:
+
+```shell
+clj -X:test
+```

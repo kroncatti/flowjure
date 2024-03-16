@@ -16,17 +16,19 @@
            (interceptors.coercer/coerce-body-on-enter {:my-map "hey"} nil))))
 
   (testing "Testing scenario with possible body validation for json-params"
-    (is (= {:request {:json-params {:name ""}}}
+    (is (= {:request {:json-params {:name ""}
+                      :data        {:name ""}}}
            (interceptors.coercer/coerce-body-on-enter {:request {:json-params {:name ""}}} SampleModel))))
 
   (testing "Testing scenario with possible body validation for edn-params"
-    (is (= {:request {:edn-params {:name ""}}}
+    (is (= {:request {:edn-params {:name ""}
+                      :data       {:name ""}}}
            (interceptors.coercer/coerce-body-on-enter {:request {:edn-params {:name ""}}} SampleModel))))
 
   (testing "Testing failure on validation"
     (is (match? {:type  :schema.core/error
-                 :error {:name  'missing-required-key
-                         :test   'disallowed-key}}
+                 :error {:name 'missing-required-key
+                         :test 'disallowed-key}}
                 (try
                   (interceptors.coercer/coerce-body-on-enter {:request {:edn-params {:test ""}}} SampleModel)
                   (catch Exception ex

@@ -33,14 +33,17 @@
   (let [body (or (get-in context [:request :json-params]) (get-in context [:request :edn-params]))]
     (when body-schema
       (s/validate body-schema body))
-    context))
+    (if body
+      (assoc-in context [:request :data] body)
+      context)))
 
 (defn coerce-body-on-leave [context]
   (if (get-in context [:response :headers "Content-Type"])
     context
     (update-in context [:response] coerce-to (accepted-type context))))
 
-(defn coerce-body-on-error [context _]
+(defn coerce-body-on-error [context error]
+  ; TODO: Move this to another interceptor and verify if error is indeed 400 before raising
   (assoc context :response (coerce-to {:status 400
                                        :body   {:details {:reason :schema-validation-error}}}
                                       (accepted-type context))))
