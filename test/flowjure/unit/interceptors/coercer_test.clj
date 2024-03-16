@@ -10,7 +10,7 @@
 (s/defschema SampleModel {(s/required-key :name) s/Str})
 
 
-(deftest coerce-body!-test
+(deftest coerce-body-on-enter-test
   (testing "Testing vanilla case with no body"
     (is (= {:my-map "hey"}
            (interceptors.coercer/coerce-body-on-enter {:my-map "hey"} nil))))
