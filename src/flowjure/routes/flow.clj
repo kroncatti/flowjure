@@ -2,8 +2,7 @@
   (:require [flowjure.interceptors.coercer :as interceptors.coercer]
             [flowjure.interceptors.common :as interceptors.common]
             [monger.collection :as mc]
-            [flowjure.models.flow :as models.flow])
-  (:import org.bson.types.ObjectId))
+            [flowjure.models.flow :as models.flow]))
 
 (defn get-flow! [{{{:keys [database]} :db} :components
                   {:keys [id]}             :path-params}]
