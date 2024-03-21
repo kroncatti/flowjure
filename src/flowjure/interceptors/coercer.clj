@@ -43,10 +43,12 @@
     (update-in context [:response] coerce-to (accepted-type context))))
 
 (defn coerce-body-on-error [context error]
-  ; TODO: Move this to another interceptor and verify if error is indeed 400 before raising
-  (assoc context :response (coerce-to {:status 400
-                                       :body   {:details {:reason :schema-validation-error}}}
-                                      (accepted-type context))))
+  (clojure.pprint/pprint (Throwable->map error))
+  (case (:type (:data (Throwable->map error)))
+    :schema.core/error (assoc context :response (coerce-to {:status 400
+                                                            :body   {:details {:type  (:type (:data (Throwable->map error)))
+                                                                               :error (:error (:data (Throwable->map error)))}}}
+                                                           (accepted-type context)))))
 
 
 (defn coerce-body!
