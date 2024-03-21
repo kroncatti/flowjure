@@ -7,7 +7,10 @@
 
 (defn get-flow! [{{{:keys [database]} :db} :components
                   {:keys [id]}             :path-params}]
-  (let [result (mc/find-one-as-map database :flow {:_id (ObjectId. ^String id)})]
+  ; TODO: parse-uuid on interceptor previously and return 400 if not properly formatted
+  ; TODO: Check why not coercing to Accept
+  (let [uuid (parse-uuid id)
+        result (mc/find-one-as-map database :flow {:_id uuid})]
     (if result
       {:status 200 :body (-> result
                              (dissoc :_id)
@@ -17,9 +20,10 @@
 (defn post-flow! [{{{:keys [database]} :db} :components
                    data                     :data}]
   (let [id (random-uuid)
-        payload (assoc data :_id id)]
-    (mc/insert-and-return database :flow payload)
-    {:status 200 :body {:result "success"
+        payload (assoc data :_id id :id id)]
+    (let [result (mc/insert-and-return database :flow payload)]
+      (clojure.pprint/pprint result))
+    {:status 200 :body {:result :success
                         :id     id}}))
 
 (def flow #{["/flow/:id"
