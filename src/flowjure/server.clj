@@ -33,7 +33,8 @@
 
 
 
-;(require '[com.stuartsierra.component.repl :refer [reset set-init start stop system]])
-;(set-init (fn [old-system] (-main)))
-;(require '[com.stuartsierra.component.repl :as crepl])
+(require '[com.stuartsierra.component.repl :refer [reset set-init start stop system]])
+(set-init (fn [old-system] (-main)))
+(require '[com.stuartsierra.component.repl :as crepl])
+(crepl/reset)
 

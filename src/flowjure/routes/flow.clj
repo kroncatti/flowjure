@@ -2,11 +2,17 @@
   (:require [flowjure.interceptors.coercer :as interceptors.coercer]
             [flowjure.interceptors.common :as interceptors.common]
             [monger.collection :as mc]
-            [flowjure.models.flow :as models.flow]))
+            [flowjure.models.flow :as models.flow])
+  (:import org.bson.types.ObjectId))
 
-(defn get-flow! [{{{:keys [database]} :db} :components :as request}]
-  (clojure.pprint/pprint (mc/find-maps database :users))
-  {:status 200 :body request})
+(defn get-flow! [{{{:keys [database]} :db} :components
+                  {:keys [id]}             :path-params}]
+  (let [result (mc/find-one-as-map database :flow {:_id (ObjectId. ^String id)})]
+    (if result
+      {:status 200 :body (-> result
+                             (dissoc :_id)
+                             (assoc :id id))}
+      {:status 404 :body "Not Found"})))
 
 (defn post-flow! [{{{:keys [database]} :db} :components
                    data                     :data}]
