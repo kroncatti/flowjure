@@ -19,9 +19,8 @@
 (defn post-flow! [{{{:keys [database]} :db} :components
                    data                     :data}]
   (let [id (random-uuid)
-        payload (assoc data :_id id :id id)]
-    (let [result (mc/insert-and-return database :flow payload)]
-      (clojure.pprint/pprint result))
+        payload (assoc data :_id id)]
+    (mc/insert-and-return database :flow payload)
     {:status 200 :body {:result :success
                         :id     id}}))
 
