@@ -1,4 +1,4 @@
-(ns flowjure.models.record
+(ns flowjure.models.db.record
   (:require [schema.core :as s]))
 
 (s/defschema Path {(s/required-key :step-name) s/Str

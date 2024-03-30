@@ -2,7 +2,7 @@
   (:require [flowjure.interceptors.coercer :as interceptors.coercer]
             [flowjure.interceptors.common :as interceptors.common]
             [monger.collection :as mc]
-            [flowjure.models.flow :as models.flow]))
+            [flowjure.models.in.flow :as in.flow]))
 
 (defn get-flow! [{{{:keys [database]} :db} :components
                   {:keys [id]}             :path-params}]
@@ -32,6 +32,6 @@
             ["/flow"
              :post [interceptors.coercer/content-negotiation
                     interceptors.common/body-parser
-                    (interceptors.coercer/coerce-body! models.flow/Flow)
+                    (interceptors.coercer/coerce-body! in.flow/Flow)
                     post-flow!]
              :route-name ::post-flow]})

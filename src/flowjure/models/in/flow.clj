@@ -1,4 +1,4 @@
-(ns flowjure.models.flow
+(ns flowjure.models.in.flow
   (:require [schema.core :as s]))
 
 
