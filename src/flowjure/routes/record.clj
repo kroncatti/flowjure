@@ -11,7 +11,6 @@
         flow (mc/find-one-as-map database :flow {:_id (parse-uuid (:flow-id payload))})]
     (if flow
       (do
-        #_ (mc/insert-and-return database :record payload)
         (clojure.pprint/pprint payload)
         {:status 200 :body {:result :success
                             :id     id}})

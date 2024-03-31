@@ -1,15 +1,13 @@
 (ns flowjure.routes.flow
   (:require [flowjure.interceptors.coercer :as interceptors.coercer]
             [flowjure.interceptors.common :as interceptors.common]
+            [flowjure.db.flow :as db.flow]
             [monger.collection :as mc]
             [flowjure.models.in.flow :as in.flow]))
 
 (defn get-flow! [{{{:keys [database]} :db} :components
                   {:keys [id]}             :path-params}]
-  ; TODO: parse-uuid on interceptor previously and return 400 if not properly formatted
-  ; TODO: Check why not coercing to Accept
-  (let [uuid (parse-uuid id)
-        result (mc/find-one-as-map database :flow {:_id uuid})]
+  (let [result (db.flow/retrieve-by-id! id database)]
     (if result
       {:status 200 :body (-> result
                              (dissoc :_id)
@@ -20,7 +18,7 @@
                    data                     :data}]
   (let [id (random-uuid)
         payload (assoc data :_id id)]
-    (mc/insert-and-return database :flow payload)
+    (db.flow/insert-flow! payload database)
     {:status 200 :body {:result :success
                         :id     id}}))
 
