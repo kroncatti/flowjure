@@ -1,4 +1,4 @@
-(ns flowjure.unit.logic.flow_test
+(ns flowjure.unit.logic.flow-test
   (:require [clojure.test :refer [deftest is testing use-fixtures]]
             [flowjure.logic.flow :as logic.flow]
             [matcher-combinators.test :refer [match?]]
