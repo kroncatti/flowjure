@@ -2,7 +2,7 @@
   (:require [schema.core :as s]
             [flowjure.models.in.record :as in.record]
             [flowjure.db.flow :as db.flow]
-            [flowjure.logic.helpers :as logic.helpers]
+            [flowjure.db.record :as db.record]
             [flowjure.logic.record :as logic.record]
             [java-time.api :as t]))
 
@@ -12,6 +12,7 @@
    record :- in.record/Record
    database]
   (if-let [flow (db.flow/retrieve-by-id! (:flow-id record) database)]
-    (do
-      (logic.record/->complete-record id record flow (t/instant)))
+    (-> id
+        (logic.record/->begin-complete-record record flow (t/instant))
+        (db.record/insert-flow! database))
     :non-existing-flow-id))

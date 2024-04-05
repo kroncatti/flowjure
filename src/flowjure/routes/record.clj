@@ -1,21 +1,18 @@
 (ns flowjure.routes.record
   (:require [flowjure.interceptors.coercer :as interceptors.coercer]
             [flowjure.interceptors.common :as interceptors.common]
-            [monger.collection :as mc]
+            [flowjure.controllers.record :as controllers.record]
             [flowjure.models.in.record :as in.record]))
 
 (defn post-record! [{{{:keys [database]} :db} :components
                      data                     :data}]
   (let [id (random-uuid)
-        payload (assoc data :_id id)
-        flow (mc/find-one-as-map database :flow {:_id (parse-uuid (:flow-id payload))})]
-    (if flow
-      (do
-        (clojure.pprint/pprint payload)
-        {:status 200 :body {:result :success
-                            :id     id}})
+        result (controllers.record/insert! id data database)]
+    (if (= :non-existing-flow-id result)
       {:status 400 :body {:details {:type  :invalid-flow-id
-                                    :error "flow-id was not found in database"}}})))
+                                    :error "flow-id was not found in database"}}}
+      {:status 200 :body {:result :success
+                          :id     id}})))
 
 (def record #{["/record"
                :post [interceptors.coercer/content-negotiation

@@ -3,8 +3,7 @@
             [flowjure.logic.flow :as logic.flow]
             [flowjure.models.in.flow :as in.flow]
             [flowjure.models.in.record :as in.record]
-            [flowjure.models.db.record :as models.db.record]
-            [java-time.api :as t]))
+            [flowjure.models.db.record :as models.db.record]))
 
 
 (s/defn first-step-history :- models.db.record/Path
@@ -13,7 +12,7 @@
   {:step-name (logic.flow/find-begin-name flow)
    :moved-at  t})
 
-(s/defn ->complete-record :- models.db.record/Record
+(s/defn ->begin-complete-record :- models.db.record/Record
   [id :- s/Uuid
    record :- in.record/Record
    flow :- in.flow/Flow
