@@ -1,6 +1,6 @@
 (ns flowjure.models.db.flow
   (:require
-    [schema.core :as s]))
+   [schema.core :as s]))
 
 (s/defschema Tag (s/enum "begin" "end"))
 

@@ -2,8 +2,8 @@
   (:require
    [flowjure.db.flow :as db.flow]
    [flowjure.logic.helpers :as logic.helpers]
-   [flowjure.models.in.flow :as in.flow]
    [flowjure.models.db.flow :as models.db.flow]
+   [flowjure.models.in.flow :as in.flow]
    [flowjure.time :as t]
    [schema.core :as s]))
 

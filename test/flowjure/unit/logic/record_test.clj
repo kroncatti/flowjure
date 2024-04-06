@@ -1,10 +1,10 @@
 (ns flowjure.unit.logic.record-test
   (:require
-    [clojure.test :refer [deftest is testing use-fixtures]]
-    [flowjure.logic.record :as logic.record]
-    [flowjure.time :as t]
-    [matcher-combinators.test :refer [match?]]
-    [schema.test]))
+   [clojure.test :refer [deftest is testing use-fixtures]]
+   [flowjure.logic.record :as logic.record]
+   [flowjure.time :as t]
+   [matcher-combinators.test :refer [match?]]
+   [schema.test]))
 
 (use-fixtures :once schema.test/validate-schemas)
 

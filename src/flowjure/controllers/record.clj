@@ -2,10 +2,10 @@
   (:require
    [flowjure.db.flow :as db.flow]
    [flowjure.db.record :as db.record]
-   [flowjure.logic.record :as logic.record]
    [flowjure.logic.helpers :as logic.helpers]
-   [flowjure.models.in.record :as in.record]
+   [flowjure.logic.record :as logic.record]
    [flowjure.models.db.record :as models.db.record]
+   [flowjure.models.in.record :as in.record]
    [flowjure.time :as t]
    [schema.core :as s]))
 
