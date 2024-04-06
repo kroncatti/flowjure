@@ -27,6 +27,5 @@
       (http/stop service))
     (assoc this :service nil)))
 
-(defn new-pedestal
-  []
+(defn new-pedestal []
   (component/using (map->Pedestal {}) [:app]))
