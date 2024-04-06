@@ -6,10 +6,10 @@
 
 (s/defn retrieve-by-id! :- models.db.flow/Flow
   [uuid :- s/Str
-   database]
+   database :- protocols.database/IDatabase]
   (protocols.database/find-one-by-key! database "flow" {:_id (parse-uuid uuid)}))
 
 (s/defn insert-flow! :- models.db.flow/Flow
   [flow :- models.db.flow/Flow
-   database]
+   database :- protocols.database/IDatabase]
   (protocols.database/insert-and-return! database "flow" flow))
