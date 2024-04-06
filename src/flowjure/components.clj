@@ -16,3 +16,8 @@
      :db (components.mongo/new-mongo-db db-url)
      :pedestal (component/using (components.pedestal/new-pedestal) [:service-map :app])
      :app (component/using (components.app/new-app) visible))))
+
+(defn new-test-system []
+  (component/system-map
+   :db (components.mongo/new-mongo-db-mock)
+   :app (component/using (components.app/new-app) visible)))

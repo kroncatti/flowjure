@@ -5,16 +5,16 @@
    [flowjure.interceptors.common :as interceptors.common]
    [flowjure.models.in.record :as in.record]))
 
-(defn get-record! [{{{:keys [database]} :db} :components
-                    {:keys [id]}             :path-params}]
-  (if-let [result (controllers.record/retrieve-by-id! id database)]
+(defn get-record! [{{:keys [db]} :components
+                    {:keys [id]} :path-params}]
+  (if-let [result (controllers.record/retrieve-by-id! id db)]
     {:status 200 :body result}
     {:status 404 :body "Not Found"}))
 
-(defn post-record! [{{{:keys [database]} :db} :components
-                     data                     :data}]
+(defn post-record! [{{:keys [db]} :components
+                     data         :data}]
   (let [id (random-uuid)
-        result (controllers.record/insert! id data database)]
+        result (controllers.record/insert! id data db)]
     (if (= :non-existing-flow-id result)
       {:status 400 :body {:details {:type  :invalid-flow-id
                                     :error "flow-id was not found in database"}}}

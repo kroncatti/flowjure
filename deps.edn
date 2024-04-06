@@ -1,4 +1,4 @@
-{:paths   ["src/" "test/"]
+{:paths   ["src"]
  :deps    {io.pedestal/pedestal.jetty          {:mvn/version "0.7.0-beta-1"}
            com.stuartsierra/component          {:mvn/version "1.1.0"}
            org.slf4j/slf4j-simple              {:mvn/version "2.0.10"}

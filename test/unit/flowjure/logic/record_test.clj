@@ -1,4 +1,4 @@
-(ns flowjure.unit.logic.record-test
+(ns unit.flowjure.logic.record-test
   (:require
    [clojure.test :refer [deftest is testing use-fixtures]]
    [flowjure.logic.record :as logic.record]
