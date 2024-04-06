@@ -20,7 +20,7 @@
 
 (def flow #{["/flow/:id"
              :get [interceptors.coercer/content-negotiation
-                   interceptors.coercer/coerce-body!
+                   (interceptors.coercer/coerce-body!)
                    get-flow!]
              :route-name ::get-flow]
             ["/flow"

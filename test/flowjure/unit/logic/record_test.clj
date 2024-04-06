@@ -1,10 +1,10 @@
 (ns flowjure.unit.logic.record-test
   (:require
-   [clojure.test :refer [deftest is testing use-fixtures]]
-   [flowjure.logic.record :as logic.record]
-   [flowjure.time :as t]
-   [matcher-combinators.test :refer [match?]]
-   [schema.test]))
+    [clojure.test :refer [deftest is testing use-fixtures]]
+    [flowjure.logic.record :as logic.record]
+    [flowjure.time :as t]
+    [matcher-combinators.test :refer [match?]]
+    [schema.test]))
 
 (use-fixtures :once schema.test/validate-schemas)
 
@@ -12,7 +12,7 @@
             :description "anything"
             :steps       [{:name "start"
                            :next ["step-1" "step-2" "step-3"]
-                           :tag  :begin}
+                           :tag  "begin"}
                           {:name     "step-1"
                            :previous ["start"]
                            :next     ["end"]}
@@ -27,7 +27,7 @@
                            :next     ["end"]}
                           {:name     "end"
                            :previous ["step-4" "step-1"]
-                           :tag      :end}]}
+                           :tag      "end"}]}
       record {:flow-id "22416b73-cadc-4353-b8f9-327fad9c0952"
               :details {:my-specific-record "example"
                         :any-data-we-want   "here"}}]
@@ -37,6 +37,7 @@
                    :details    {:my-specific-record string?
                                 :any-data-we-want   string?}
                    :_id        uuid?
+                   :id         string?
                    :path       [{:step-name string?,
                                  :moved-at  inst?}],
                    :created-at inst?}

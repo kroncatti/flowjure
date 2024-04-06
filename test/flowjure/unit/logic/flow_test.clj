@@ -11,7 +11,7 @@
             :description "anything"
             :steps [{:name "start"
                      :next ["step-1" "step-2" "step-3"]
-                     :tag :begin}
+                     :tag "begin"}
                     {:name "step-1"
                      :previous ["start"]
                      :next ["end"]}
@@ -26,7 +26,7 @@
                      :next ["end"]}
                     {:name "end"
                      :previous ["step-4" "step-1"]
-                     :tag :end}]}]
+                     :tag "end"}]}]
   (deftest find-tag-and-return-name
     (testing "Testing for begin"
       (is (match? "start"

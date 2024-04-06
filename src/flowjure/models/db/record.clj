@@ -6,7 +6,7 @@
                    (s/required-key :moved-at)  s/Inst})
 
 (s/defschema Record {(s/required-key :_id)        s/Uuid
-                     (s/optional-key :id)         s/Uuid
+                     (s/optional-key :id)         s/Str
                      (s/required-key :flow-id)    s/Str
                      (s/required-key :details)    (s/pred map?)
                      (s/required-key :path)       [Path]

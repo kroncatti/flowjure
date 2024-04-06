@@ -5,7 +5,7 @@
 
 (s/defn find-step-name-for-tag :- s/Str
   [flow :- in.flow/Flow
-   tag :- s/Keyword]
+   tag :- in.flow/Tag]
   (->> flow
        :steps
        (filterv #(= tag (:tag %)))
@@ -14,9 +14,9 @@
 
 (s/defn find-begin-step-name :- s/Str
   [flow :- in.flow/Flow]
-  (find-step-name-for-tag flow :begin))
+  (find-step-name-for-tag flow "begin"))
 
 (s/defn find-end-step-name :- s/Str
   [flow :- in.flow/Flow]
-  (find-step-name-for-tag flow :end))
+  (find-step-name-for-tag flow "end"))
 
