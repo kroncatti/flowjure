@@ -1,9 +1,15 @@
 (ns flowjure.routes.record
   (:require
-   [flowjure.controllers.record :as controllers.record]
-   [flowjure.interceptors.coercer :as interceptors.coercer]
-   [flowjure.interceptors.common :as interceptors.common]
-   [flowjure.models.in.record :as in.record]))
+    [flowjure.controllers.record :as controllers.record]
+    [flowjure.interceptors.coercer :as interceptors.coercer]
+    [flowjure.interceptors.common :as interceptors.common]
+    [flowjure.models.in.record :as in.record]))
+
+(defn get-record! [{{{:keys [database]} :db} :components
+                    {:keys [id]}             :path-params}]
+  (if-let [result (controllers.record/retrieve-by-id! id database)]
+    {:status 200 :body result}
+    {:status 404 :body "Not Found"}))
 
 (defn post-record! [{{{:keys [database]} :db} :components
                      data                     :data}]
@@ -15,7 +21,12 @@
       {:status 200 :body {:result :success
                           :id     id}})))
 
-(def record #{["/record"
+(def record #{["/record/:id"
+               :get [interceptors.coercer/content-negotiation
+                     (interceptors.coercer/coerce-body!)
+                     get-record!]
+               :route-name ::get-record]
+              ["/record"
                :post [interceptors.coercer/content-negotiation
                       interceptors.common/body-parser
                       (interceptors.coercer/coerce-body! in.record/Record)

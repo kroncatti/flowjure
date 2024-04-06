@@ -4,7 +4,12 @@
    [monger.collection :as mc]
    [schema.core :as s]))
 
-(s/defn insert-flow! :- models.db.record/Record
+(s/defn retrieve-by-id! :- models.db.record/Record
+  [uuid :- s/Str
+   database]
+  (mc/find-one-as-map database "record" {:_id (parse-uuid uuid)}))
+
+(s/defn insert-record! :- models.db.record/Record
   [record :- models.db.record/Record
    database]
   (mc/insert-and-return database "record" record))
