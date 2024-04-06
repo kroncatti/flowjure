@@ -1,6 +1,6 @@
 (ns flowjure.protocols.database
-  (:require [schema.core :as s]))
-
+  (:require
+   [schema.core :as s]))
 
 (defprotocol Database
   "Interface for Database"

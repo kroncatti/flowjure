@@ -1,9 +1,9 @@
 (ns flowjure.components.mongo
   (:require
-    [com.stuartsierra.component :as component]
-    [flowjure.protocols.database :as protocols.database]
-    [monger.core :as mg]
-    [monger.collection :as mc]))
+   [com.stuartsierra.component :as component]
+   [flowjure.protocols.database :as protocols.database]
+   [monger.collection :as mc]
+   [monger.core :as mg]))
 
 (defrecord Database [uri]
   component/Lifecycle
@@ -11,8 +11,8 @@
   (start [this]
     (let [{:keys [conn db]} (mg/connect-via-uri uri)]
       (assoc this
-        :database db
-        ::connection conn)))
+             :database db
+             ::connection conn)))
 
   (stop [this]
     (-> this ::connection mg/disconnect)

@@ -1,9 +1,9 @@
 (ns flowjure.routes.record
   (:require
-    [flowjure.controllers.record :as controllers.record]
-    [flowjure.interceptors.coercer :as interceptors.coercer]
-    [flowjure.interceptors.common :as interceptors.common]
-    [flowjure.models.in.record :as in.record]))
+   [flowjure.controllers.record :as controllers.record]
+   [flowjure.interceptors.coercer :as interceptors.coercer]
+   [flowjure.interceptors.common :as interceptors.common]
+   [flowjure.models.in.record :as in.record]))
 
 (defn get-record! [{{:keys [db]} :components
                     {:keys [id]} :path-params}]

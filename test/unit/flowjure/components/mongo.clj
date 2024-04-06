@@ -1,13 +1,8 @@
 (ns unit.flowjure.components.mongo
   (:require
-    [clojure.test :refer [deftest is testing use-fixtures]]
-    [flowjure.interceptors.coercer :as interceptors.coercer]
-    [matcher-combinators.test :refer [match?]]
-    [flowjure.components :as components]
-    [com.stuartsierra.component :as component]
-    [schema.core :as s]
-    [schema.test]))
-
+   [com.stuartsierra.component :as component]
+   [flowjure.components :as components]
+   [schema.test]))
 
 (def test-db (:db (component/start (components/new-test-system))))
 
