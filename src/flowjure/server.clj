@@ -35,12 +35,3 @@
 (set-init (fn [old-system] (-main)))
 (require '[com.stuartsierra.component.repl :as crepl])
 (crepl/reset)
-
-#_(def test-db (:db (component/start
-                     (components/new-test-system))))
-
-#_(flowjure.protocols.database/insert-and-return! test-db "something" {:my "map"
-                                                                       :id "12345"})
-
-#_(flowjure.protocols.database/find-one-by-key! test-db "something" {:my "map"
-                                                                     :id "12345"})
