@@ -1,20 +1,20 @@
 (ns flowjure.routes.flow
   (:require
-   [flowjure.controllers.flow :as controllers.flow]
-   [flowjure.interceptors.coercer :as interceptors.coercer]
-   [flowjure.interceptors.common :as interceptors.common]
-   [flowjure.models.in.flow :as in.flow]))
+    [flowjure.controllers.flow :as controllers.flow]
+    [flowjure.interceptors.coercer :as interceptors.coercer]
+    [flowjure.interceptors.common :as interceptors.common]
+    [flowjure.models.in.flow :as in.flow]))
 
-(defn get-flow! [{{{:keys [database]} :db} :components
-                  {:keys [id]}             :path-params}]
-  (if-let [result (controllers.flow/retrieve-by-id! id database)]
+(defn get-flow! [{{:keys [db]} :components
+                  {:keys [id]} :path-params}]
+  (if-let [result (controllers.flow/retrieve-by-id! id db)]
     {:status 200 :body result}
     {:status 404 :body "Not Found"}))
 
-(defn post-flow! [{{{:keys [database]} :db} :components
-                   data                     :data}]
+(defn post-flow! [{{:keys [db]} :components
+                   data         :data}]
   (let [id (random-uuid)]
-    (controllers.flow/insert! id data database)
+    (controllers.flow/insert! id data db)
     {:status 200 :body {:result :success
                         :id     id}}))
 

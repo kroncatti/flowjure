@@ -1,8 +1,8 @@
 (ns flowjure.server
   (:require
-   [com.stuartsierra.component :as component]
-   [flowjure.components :as components]
-   [schema.core :as s]))
+    [com.stuartsierra.component :as component]
+    [flowjure.components :as components]
+    [schema.core :as s]))
 
 (s/defn build-conn-url :- s/Str
   [username :- s/Str
@@ -31,8 +31,18 @@
                                                                    (System/getenv "DB_PASSWORD")
                                                                    (System/getenv "DB_NAME"))})))
 
+
 (require '[com.stuartsierra.component.repl :refer [reset set-init start stop system]])
 (set-init (fn [old-system] (-main)))
 (require '[com.stuartsierra.component.repl :as crepl])
 (crepl/reset)
 
+#_(def test-db (:db (component/start
+                       (components/new-test-system))))
+
+
+#_(flowjure.protocols.database/insert-and-return! test-db "something" {:my "map"
+                                                                     :id "12345"})
+
+#_(flowjure.protocols.database/find-one-by-key! test-db "something" {:my "map"
+                                                                   :id "12345"})
