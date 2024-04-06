@@ -1,4 +1,4 @@
-(ns flowjure.unit.interceptors.coercer-test
+(ns unit.flowjure.interceptors.coercer-test
   (:require
    [clojure.test :refer [deftest is testing use-fixtures]]
    [flowjure.interceptors.coercer :as interceptors.coercer]
