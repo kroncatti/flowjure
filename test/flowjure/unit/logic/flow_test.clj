@@ -1,11 +1,11 @@
 (ns flowjure.unit.logic.flow-test
-  (:require [clojure.test :refer [deftest is testing use-fixtures]]
-            [flowjure.logic.flow :as logic.flow]
-            [matcher-combinators.test :refer [match?]]
-            [schema.test]))
+  (:require
+   [clojure.test :refer [deftest is testing use-fixtures]]
+   [flowjure.logic.flow :as logic.flow]
+   [matcher-combinators.test :refer [match?]]
+   [schema.test]))
 
 (use-fixtures :once schema.test/validate-schemas)
-
 
 (let [flow {:name "my-flow"
             :description "anything"
@@ -29,8 +29,8 @@
                      :tag :end}]}]
   (deftest find-tag-and-return-name
     (testing "Testing for begin"
-     (is (match? "start"
-                 (logic.flow/find-begin-step-name flow))))
+      (is (match? "start"
+                  (logic.flow/find-begin-step-name flow))))
 
     (testing "Testing for end"
       (is (match? "end"

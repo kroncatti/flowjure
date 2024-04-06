@@ -1,8 +1,9 @@
 (ns flowjure.interceptors.coercer
-  (:require [io.pedestal.http.content-negotiation :as content-negotiation]
-            [io.pedestal.interceptor :as i]
-            [clojure.data.json :as json]
-            [schema.core :as s]))
+  (:require
+   [clojure.data.json :as json]
+   [io.pedestal.http.content-negotiation :as content-negotiation]
+   [io.pedestal.interceptor :as i]
+   [schema.core :as s]))
 
 (def supported-types ["text/html"
                       "application/edn"
@@ -50,14 +51,13 @@
                                                                                :error (:error (:data (Throwable->map error)))}}}
                                                            (accepted-type context)))))
 
-
 (defn coerce-body!
   ([body-schema]
    (i/interceptor
-     {:name  ::coerce-body!
-      :enter (fn [context]
-               (coerce-body-on-enter context body-schema))
-      :leave coerce-body-on-leave
-      :error coerce-body-on-error}))
+    {:name  ::coerce-body!
+     :enter (fn [context]
+              (coerce-body-on-enter context body-schema))
+     :leave coerce-body-on-leave
+     :error coerce-body-on-error}))
   ([]
    (coerce-body! nil)))

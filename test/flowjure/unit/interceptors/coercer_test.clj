@@ -1,14 +1,14 @@
 (ns flowjure.unit.interceptors.coercer-test
-  (:require [clojure.test :refer [deftest is testing use-fixtures]]
-            [flowjure.interceptors.coercer :as interceptors.coercer]
-            [matcher-combinators.test :refer [match?]]
-            [schema.core :as s]
-            [schema.test]))
+  (:require
+   [clojure.test :refer [deftest is testing use-fixtures]]
+   [flowjure.interceptors.coercer :as interceptors.coercer]
+   [matcher-combinators.test :refer [match?]]
+   [schema.core :as s]
+   [schema.test]))
 
 (use-fixtures :once schema.test/validate-schemas)
 
 (s/defschema SampleModel {(s/required-key :name) s/Str})
-
 
 (deftest coerce-body-on-enter-test
   (testing "Testing vanilla case with no body"

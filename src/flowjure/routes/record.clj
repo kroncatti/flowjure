@@ -1,8 +1,9 @@
 (ns flowjure.routes.record
-  (:require [flowjure.interceptors.coercer :as interceptors.coercer]
-            [flowjure.interceptors.common :as interceptors.common]
-            [flowjure.controllers.record :as controllers.record]
-            [flowjure.models.in.record :as in.record]))
+  (:require
+   [flowjure.controllers.record :as controllers.record]
+   [flowjure.interceptors.coercer :as interceptors.coercer]
+   [flowjure.interceptors.common :as interceptors.common]
+   [flowjure.models.in.record :as in.record]))
 
 (defn post-record! [{{{:keys [database]} :db} :components
                      data                     :data}]

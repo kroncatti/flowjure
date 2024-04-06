@@ -1,6 +1,6 @@
 (ns flowjure.logic.helpers
-  (:require [schema.core :as s]))
-
+  (:require
+   [schema.core :as s]))
 
 (s/defn set-mongo-id :- (s/pred map?)
   [m :- (s/pred map?)

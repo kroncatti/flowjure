@@ -1,5 +1,6 @@
 (ns flowjure.models.db.record
-  (:require [schema.core :as s]))
+  (:require
+   [schema.core :as s]))
 
 (s/defschema Path {(s/required-key :step-name) s/Str
                    (s/required-key :moved-at)  s/Inst})

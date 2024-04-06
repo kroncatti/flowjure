@@ -1,11 +1,11 @@
 (ns flowjure.controllers.record
-  (:require [schema.core :as s]
-            [flowjure.models.in.record :as in.record]
-            [flowjure.db.flow :as db.flow]
-            [flowjure.db.record :as db.record]
-            [flowjure.logic.record :as logic.record]
-            [java-time.api :as t]))
-
+  (:require
+   [flowjure.db.flow :as db.flow]
+   [flowjure.db.record :as db.record]
+   [flowjure.logic.record :as logic.record]
+   [flowjure.models.in.record :as in.record]
+   [java-time.api :as t]
+   [schema.core :as s]))
 
 (s/defn insert!
   [id :- s/Uuid

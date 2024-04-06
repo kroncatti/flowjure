@@ -1,6 +1,7 @@
 (ns flowjure.logic.flow
-  (:require [schema.core :as s]
-            [flowjure.models.in.flow :as in.flow]))
+  (:require
+   [flowjure.models.in.flow :as in.flow]
+   [schema.core :as s]))
 
 (s/defn find-step-name-for-tag :- s/Str
   [flow :- in.flow/Flow

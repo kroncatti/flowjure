@@ -1,13 +1,13 @@
 (ns flowjure.components
-  (:require [com.stuartsierra.component :as component]
-            [flowjure.components.app :as components.app]
-            [flowjure.components.pedestal :as components.pedestal]
-            [flowjure.components.mongo :as components.mongo]
-            [flowjure.app :as app]))
+  (:require
+   [com.stuartsierra.component :as component]
+   [flowjure.app :as app]
+   [flowjure.components.app :as components.app]
+   [flowjure.components.mongo :as components.mongo]
+   [flowjure.components.pedestal :as components.pedestal]))
 
 (def visible
   [:db])
-
 
 (defn new-system [& options]
   (let [{:keys [env port db-url]} options]

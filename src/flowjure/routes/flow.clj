@@ -1,8 +1,9 @@
 (ns flowjure.routes.flow
-  (:require [flowjure.interceptors.coercer :as interceptors.coercer]
-            [flowjure.interceptors.common :as interceptors.common]
-            [flowjure.controllers.flow :as controllers.flow]
-            [flowjure.models.in.flow :as in.flow]))
+  (:require
+   [flowjure.controllers.flow :as controllers.flow]
+   [flowjure.interceptors.coercer :as interceptors.coercer]
+   [flowjure.interceptors.common :as interceptors.common]
+   [flowjure.models.in.flow :as in.flow]))
 
 (defn get-flow! [{{{:keys [database]} :db} :components
                   {:keys [id]}             :path-params}]

@@ -1,9 +1,9 @@
 (ns flowjure.controllers.flow
-  (:require [schema.core :as s]
-            [flowjure.models.in.flow :as in.flow]
-            [flowjure.logic.helpers :as logic.helpers]
-            [flowjure.db.flow :as db.flow]))
-
+  (:require
+   [flowjure.db.flow :as db.flow]
+   [flowjure.logic.helpers :as logic.helpers]
+   [flowjure.models.in.flow :as in.flow]
+   [schema.core :as s]))
 
 (s/defn insert!
   [id :- s/Uuid
