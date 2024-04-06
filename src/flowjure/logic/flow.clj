@@ -11,11 +11,11 @@
        first
        :name))
 
-(s/defn find-begin-name :- s/Str
+(s/defn find-begin-step-name :- s/Str
   [flow :- in.flow/Flow]
   (find-step-name-for-tag flow :begin))
 
-(s/defn find-end-name :- s/Str
+(s/defn find-end-step-name :- s/Str
   [flow :- in.flow/Flow]
   (find-step-name-for-tag flow :end))
 

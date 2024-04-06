@@ -27,11 +27,11 @@
                     {:name "end"
                      :previous ["step-4" "step-1"]
                      :tag :end}]}]
- (deftest find-tag-and-return-name
-   (testing "Testing for begin"
+  (deftest find-tag-and-return-name
+    (testing "Testing for begin"
      (is (match? "start"
-                 (logic.flow/find-begin-name flow))))
+                 (logic.flow/find-begin-step-name flow))))
 
-   (testing "Testing for end"
-     (is (match? "end"
-                 (logic.flow/find-end-name flow))))))
+    (testing "Testing for end"
+      (is (match? "end"
+                  (logic.flow/find-end-step-name flow))))))

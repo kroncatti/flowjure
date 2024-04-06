@@ -8,16 +8,16 @@
 
 (s/defn first-step-history :- models.db.record/Path
   [flow :- in.flow/Flow
-   t :- s/Inst]
-  {:step-name (logic.flow/find-begin-name flow)
-   :moved-at  t})
+   instant :- s/Inst]
+  {:step-name (logic.flow/find-begin-step-name flow)
+   :moved-at  instant})
 
 (s/defn ->begin-complete-record :- models.db.record/Record
   [id :- s/Uuid
    record :- in.record/Record
    flow :- in.flow/Flow
-   t :- s/Inst]
+   instant :- s/Inst]
   (merge record
          {:_id        id
-          :path       [(first-step-history flow t)]
-          :created-at t}))
+          :path       [(first-step-history flow instant)]
+          :created-at instant}))
