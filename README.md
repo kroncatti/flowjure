@@ -1,5 +1,5 @@
 # flowjure
-The elegance of Clojure dealing with flows.
+The elegance of Clojure dealing with flows and state-machines.
 
 ## Running tests
 Run:
