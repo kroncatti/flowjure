@@ -31,8 +31,8 @@
                                                                    (System/getenv "DB_PASSWORD")
                                                                    (System/getenv "DB_NAME"))})))
 
-;(require '[com.stuartsierra.component.repl :refer [reset set-init start stop system]])
-;(set-init (fn [old-system] (-main)))
-;(require '[com.stuartsierra.component.repl :as crepl])
-;(crepl/reset)
+(require '[com.stuartsierra.component.repl :refer [reset set-init start stop system]])
+(set-init (fn [old-system] (-main)))
+(require '[com.stuartsierra.component.repl :as crepl])
+(crepl/reset)
 
