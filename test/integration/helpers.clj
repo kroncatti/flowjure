@@ -29,10 +29,7 @@
 
 (defn start-system!
   ([]
-   (server/run-test))
-  ([system-start-fn]
-   (fn []
-     (system-start-fn))))
+   (server/run-test)))
 
 (defn stop-system!
   [system]
