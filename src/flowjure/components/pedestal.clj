@@ -1,8 +1,8 @@
 (ns flowjure.components.pedestal
   (:require
-   [com.stuartsierra.component :as component]
-   [flowjure.interceptors.injection :as interceptors.injection]
-   [io.pedestal.http :as http]))
+    [com.stuartsierra.component :as component]
+    [flowjure.interceptors.injection :as interceptors.injection]
+    [io.pedestal.http :as http]))
 
 (defn env?
   [service-map env]
@@ -14,18 +14,18 @@
               http/default-interceptors
               (update ::http/interceptors conj (interceptors.injection/injection app))
               http/create-server)
-    (not (env? service-map :test)) http/start))
+          (not (env? service-map :test)) http/start))
 
 (defrecord Pedestal [service-map service app]
   component/Lifecycle
   (start [this]
     (if service
       this
-      (assoc this :service (start-pedestal! service-map app))))
+      (assoc this :server (start-pedestal! service-map app))))
   (stop [this]
     (when (and service (not (env? service-map :test)))
       (http/stop service))
-    (assoc this :service nil)))
+    (assoc this :server nil)))
 
 (defn new-pedestal []
   (component/using (map->Pedestal {}) [:app]))
