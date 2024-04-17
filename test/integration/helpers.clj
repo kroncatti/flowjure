@@ -1,8 +1,10 @@
 (ns integration.helpers
   (:require [cheshire.core :as json]
             [clojure.string :as string]
+            [com.stuartsierra.component :as component]
             [io.pedestal.test :as pedestal.test]
             [state-flow.api :as state-flow.api]
+            [flowjure.server :as server]
             [state-flow.core :refer [flow]]))
 
 (defn- do-request [service-fn verb route body headers]
@@ -24,3 +26,14 @@
             (do-request method uri body headers)
             parsed-response
             state-flow.api/return)))
+
+(defn start-system!
+  ([]
+   (server/run-test))
+  ([system-start-fn]
+   (fn []
+     (system-start-fn))))
+
+(defn stop-system!
+  [system]
+  (component/stop-system system))

@@ -41,7 +41,7 @@
 (defn run-test [& args]
   (-> {:env  :test
        :port 8892}
-      components/new-system
+      components/new-test-system
       start-system!))
 
 (comment
