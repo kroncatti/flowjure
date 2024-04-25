@@ -1,4 +1,4 @@
-(ns integration.helpers
+(ns integration.helpers.helpers
   (:require [cheshire.core :as json]
             [clojure.string :as string]
             [com.stuartsierra.component :as component]
