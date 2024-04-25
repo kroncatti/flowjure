@@ -1,8 +1,8 @@
 (ns flowjure.server
   (:require
-    [com.stuartsierra.component :as component]
-    [flowjure.components :as components]
-    [schema.core :as s]))
+   [com.stuartsierra.component :as component]
+   [flowjure.components :as components]
+   [schema.core :as s]))
 
 (def system-atom (atom nil))
 

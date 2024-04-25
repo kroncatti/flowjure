@@ -10,10 +10,12 @@
            com.stuartsierra/component.repl     {:mvn/version "0.2.0"}
            nubank/state-flow                   {:mvn/version "5.15.0"}}
  :aliases {:test        {:extra-paths ["test"]
-                         :extra-deps  {org.clojure/test.check               {:mvn/version "1.1.1"}
-                                       io.github.cognitect-labs/test-runner {:git/tag "v0.5.1" :git/sha "dfb30dd"}
-                                       nubank/state-flow                    {:mvn/version "5.15.0"}}
-                         :main-opts   ["-m" "cognitect.test-runner"]
+                         :extra-deps  {org.clojure/test.check        {:mvn/version "1.1.1"}
+                                       lambdaisland/kaocha           {:mvn/version "1.88.1376"}
+                                       lambdaisland/kaocha-cloverage {:mvn/version "1.1.89"}
+                                       nubank/state-flow             {:mvn/version "5.15.0"}}
+                         :main-opts   ["-m" "kaocha.runner"]
+                         :jvm-opts    ["-Xms2g" "-Xmx2g"]
                          :exec-fn     cognitect.test-runner.api/test}
            :clojure-lsp {:replace-deps {com.github.clojure-lsp/clojure-lsp-standalone {:mvn/version "2024.03.31-19.10.13"}}
                          :main-opts    ["-m" "clojure-lsp.main"]}}}

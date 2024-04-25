@@ -5,7 +5,8 @@ The elegance of Clojure dealing with flows and state-machines.
 Run:
 
 ```shell
-clj -X:test
+clj -M:test :unit
+clj -M:test :integration
 ```
 
 ## Linting
