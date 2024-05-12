@@ -1,9 +1,9 @@
 (ns flowjure.routes.record
   (:require
-   [flowjure.controllers.record :as controllers.record]
-   [flowjure.interceptors.coercer :as interceptors.coercer]
-   [flowjure.interceptors.common :as interceptors.common]
-   [flowjure.models.in.record :as in.record]))
+    [flowjure.controllers.record :as controllers.record]
+    [flowjure.interceptors.coercer :as interceptors.coercer]
+    [flowjure.interceptors.common :as interceptors.common]
+    [flowjure.models.in.record :as in.record]))
 
 (defn get-record! [{{:keys [db]} :components
                     {:keys [id]} :path-params}]
@@ -21,6 +21,11 @@
       {:status 200 :body {:result :success
                           :id     id}})))
 
+(defn move-record! [{{:keys [db]} :components
+                     {:keys [id]} :path-params
+                     data         :data}]
+  {:status 200 :body "Hello"})
+
 (def record #{["/record/:id"
                :get [interceptors.coercer/content-negotiation
                      (interceptors.coercer/coerce-body!)
@@ -31,4 +36,10 @@
                       interceptors.common/body-parser
                       (interceptors.coercer/coerce-body! in.record/Record)
                       post-record!]
-               :route-name ::post-record]})
+               :route-name ::post-record]
+              ["/record/:id/move"
+               :post [interceptors.coercer/content-negotiation
+                      interceptors.common/body-parser
+                      (interceptors.coercer/coerce-body! in.record/MoveRecord)
+                      move-record!]
+               :route-name ::move-record]})
