@@ -1,4 +1,4 @@
-# flowjure
+# flowjure (in progress)
 The elegance of Clojure dealing with flows and state-machines.
 
 ## Running tests
